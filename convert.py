@@ -9,10 +9,10 @@ def argparser():
   return parser.parse_args()
 
 def convert(fpath):
-  with open(f"./{fpath}", 'r') as file:
+  with open(fpath, 'r') as file:
     content = file.read()
   modified = content.replace('    ', '  ')
-  with open(f"./{fpath}", 'w') as file:
+  with open(fpath, 'w') as file:
     file.write(modified)
 
 if __name__ == "__main__":
@@ -20,8 +20,9 @@ if __name__ == "__main__":
   if args.dir:
     if args.file[-1] == '/':
       args.file = args.file[:-1]
-    fdir = [file for file in os.listdir(f'./{args.file}') if file.endswith(args.ext)]
-    for fpath in fdir:
-      convert(f'./{args.file}/{fpath}')
+    for dirpath, dirnames, filenames in os.walk(args.file):
+      for filename in filenames:
+        if filename.endswith(args.ext):
+          convert(os.path.join(dirpath, filename))
   else:
-    convert(f'./{args.file}')
+    convert(args.file)
