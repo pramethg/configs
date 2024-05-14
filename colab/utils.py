@@ -8,4 +8,4 @@ def model_size(model):
   if total_size > 1024:
     print(f"Model Size = {total_size / 1024:.2f} GB")
   else:
-    print(f"Model Size = {total_size:.2f} GB")
+    print(f"Model Size = {total_size:.2f} MB")
